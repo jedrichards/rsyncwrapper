@@ -29,7 +29,7 @@ The `options` argument is an object literal with the following possible fields:
 
 #### `host`
 
-*[string]* A string specifying a remote host for if the copy operation needs to happen across ssh instead of the local filesystem. For example, `user@domain.com` or `user@1.2.3.4` etc. Usage of this option requires passwordless-ssh via public/private keys to be working to your host.
+*[string]* Optional remote host string for the `dest`, e.g. `user@1.2.3.4` or `ssh-host-alias` etc.
 
 #### `recursive`
 
