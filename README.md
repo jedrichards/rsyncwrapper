@@ -1,25 +1,23 @@
-# rsyncwrapper
+## rsyncwrapper
 
 An async wrapper to the rsync command line utility for Node.js.
 
-## Prerequisites
+### Prerequisites
 
 A reasonably modern version of rsync (>=2.6.9) in your PATH.
 
-## Installation
+### Installation
 
     npm install rsyncwrapper
 
-## Usage
+### Usage
 
     var rsync = require("rsyncwrapper").rsync;
     rsync(options,[callback]);
 
-The callback gets three arguments `(error,stdout,stderr)`.
+The `callback` function gets three arguments `(error,stdout,stderr)`.
 
-### Options
-
-The `options` argument can have the following fields:
+The `options` argument is an object literal with the following possible fields:
 
 #### `src`
 
@@ -31,11 +29,11 @@ The `options` argument can have the following fields:
 
 #### `host`
 
-*[string]* A remote host if the copy operation needs to happen across ssh instead of the local filesystem. For example, `user@domain.com` or `user@1.2.3.4` etc. Usage of this option requires passwordless-ssh via public/private keys to be working to your host.
+*[string]* A string specifying a remote host for if the copy operation needs to happen across ssh instead of the local filesystem. For example, `user@domain.com` or `user@1.2.3.4` etc. Usage of this option requires passwordless-ssh via public/private keys to be working to your host.
 
 #### `recursive`
 
-*[boolean]* Boolean value specifying whether to recursively copy directories. Without this option set to `true` rsync will only copy files.
+*[boolean]* Boolean value specifying whether to copy directories and recurse through their contents. Without this option set to `true` rsync will only copy files.
 
 #### `delete`
 
@@ -45,21 +43,21 @@ The `options` argument can have the following fields:
 
 *[array]* An array of exclude pattern strings to exclude from the copy operation. For example, `"*.txt"`, `"some-dir"`, `"some-dir/some-file.txt"` etc.
 
-### `compareMode`
+#### `compareMode`
 
 *[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required and result in fairly heavy disk I/O on both sides.
 
 For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
-## Tests
+### Tests
 
 Basic tests are run via [Vows Async BDD](http://vowsjs.org/) and [Grunt](http://gruntjs.com/). To test rsyncwrapper install it with the devDependancies and then run:
 
     npm test
 
-## Examples
+### Examples
 
-Copying a single file to another location. If the `dest` folder doesn't exist rsync will do a `mkdir` and create it. However it will only `mkdir` one missing directory deep (i.e. not the equivalent of `mkdir -p`).
+Copy a single file to another location. If the `dest` folder doesn't exist rsync will do a `mkdir` and create it. However it will only `mkdir` one missing directory deep (i.e. not the equivalent of `mkdir -p`).
 
 ```javascript
 var rsync = require("rsyncwrapper").rsync;
@@ -77,7 +75,7 @@ rsync({
 });
 ```
 
-Copying the entire contents of a directory to a folder on a remote host, while exluding `txt` files. Note the trailing `/` on the `src` and the absence of a trailing `/` on the `dest`. Again rsync will only `mkdir` one level deep:
+Copy the contents of a directory to another folder, while excluding `txt` files. Note the trailing `/` on the `src` folder and the absence of a trailing `/` on the `dest` folder - this is the required format when copy the contents of a folder. Again rsync will only `mkdir` one level deep:
 
 var rsync = require("rsyncwrapper").rsync;
 
@@ -85,9 +83,28 @@ var rsync = require("rsyncwrapper").rsync;
 rsync({
     src: "./src-folder/",
     dest: "./dest-folder",
-    host: "user@1.2.3.4",
     recursive: true,
     exclude: ["*.txt"]
+},function (error,stdout,stderr) {
+    if ( error ) {
+        // failed
+        console.log(error.message);
+    } else {
+        // success
+    }
+});
+```
+
+Syncronise the contents of a local directory with a directory on a remote host using the checksum algorithm to determine if a file needs copying:
+
+```javascript
+rsync({
+    src: "./local-src/",
+    dest: "/var/www/remote-dest",
+    host: "user@1.2.3.4",
+    recursive: true,
+    delete: true,
+    compareMode: "checksum"
 },function (error,stdout,stderr) {
     if ( error ) {
         // failed
