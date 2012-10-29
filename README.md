@@ -51,6 +51,12 @@ The `options` argument can have the following fields:
 
 For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
+## Tests
+
+Basic tests are run via [Vows Async BDD](http://vowsjs.org/) and [Grunt](http://gruntjs.com/). To test rsyncwrapper install it with the devDependancies and then run:
+
+    npm test
+
 ## Examples
 
 Copying a single file to another location. If the `dest` folder doesn't exist rsync will do a `mkdir` and create it. However it will only `mkdir` one missing directory deep (i.e. not the equivalent of `mkdir -p`).
@@ -91,3 +97,7 @@ rsync({
     }
 });
 ```
+
+## TODO
+
+- Add more tests to cover usage of more options.
