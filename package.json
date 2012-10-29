@@ -5,7 +5,7 @@
     "main": "lib/rsyncwrapper",
     "repository": {
         "type": "git",
-        "url": "foo.git"
+        "url": "git://github.com/jedrichards/rsyncwrapper.git"
     },
     "scripts": {
         "test": "grunt test"
