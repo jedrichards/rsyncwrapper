@@ -23,11 +23,11 @@ The `options` argument can have the following fields:
 
 #### `src`
 
-*[required string]* The source file or directory to copy. Path is relative to the apps folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
+*[required string]* The source file or directory to copy. Path is relative to the Node app's folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
 
 #### `dest`
 
-*[required string]* The destination file or directory to copy to. Path is relative to the apps folder, e.g. `./tmp/file.txt` or `/tmp` etc.
+*[required string]* The destination file or directory to copy to. Path is relative to the Node app's folder, e.g. `./tmp/file.txt` or `/tmp` etc.
 
 #### `host`
 
@@ -43,44 +43,51 @@ The `options` argument can have the following fields:
 
 #### `exclude`
 
-*[array]* An array of string to exclude from the operation. For example, `"*.txt"`, `"some-dir"`, `"some-dir/some-file.txt"` etc.
+*[array]* An array of exclude pattern strings to exclude from the copy operation. For example, `"*.txt"`, `"some-dir"`, `"some-dir/some-file.txt"` etc.
 
 ### `compareMode`
 
-*[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required.
+*[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required and result in fairly heavy disk I/O on both sides.
 
-For extra information and subtlty relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
+For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
 ## Examples
 
-Copying a single file to another location. If the destination folder doesn't exist rsync will `mkdir` it, it will only `mkdir` one missing directory deep though:
+Copying a single file to another location. If the `dest` folder doesn't exist rsync will do a `mkdir` and create it. However it will only `mkdir` one missing directory deep (i.e. not the equivalent of `mkdir -p`).
 
-    var rsync = require("rsyncwrapper").rsync;
-    rsync({
-        src: "./file.txt",
-        dest: "./tmp/file.txt"
-    },function (error,stdout,stderr) {
-        if ( error ) {
-            // failed
-            console.log(error.message);
-        } else {
-            // success
-        }
-    });
+```javascript
+var rsync = require("rsyncwrapper").rsync;
 
-Copying the entire contents of a directory to another location, while exluding `txt` files. Note the trailing `/` on the `src` and the absence of a trailing `/` on the `dest`. Again rsync will only `mkdir` one level deep:
+rsync({
+    src: "./file.txt",
+    dest: "./tmp/file.txt"
+},function (error,stdout,stderr) {
+    if ( error ) {
+        // failed
+        console.log(error.message);
+    } else {
+        // success
+    }
+});
+```
 
-    var rsync = require("rsyncwrapper").rsync;
-        rsync({
-            src: "./src-folder/",
-            dest: "./dest-folder",
-            recursive: true,
-            exclude: ["*.txt"]
-        },function (error,stdout,stderr) {
-            if ( error ) {
-                // failed
-                console.log(error.message);
-            } else {
-                // success
-            }
-        });
+Copying the entire contents of a directory to a folder on a remote host, while exluding `txt` files. Note the trailing `/` on the `src` and the absence of a trailing `/` on the `dest`. Again rsync will only `mkdir` one level deep:
+
+var rsync = require("rsyncwrapper").rsync;
+
+```javascript
+rsync({
+    src: "./src-folder/",
+    dest: "./dest-folder",
+    host: "user@1.2.3.4",
+    recursive: true,
+    exclude: ["*.txt"]
+},function (error,stdout,stderr) {
+    if ( error ) {
+        // failed
+        console.log(error.message);
+    } else {
+        // success
+    }
+});
+```
