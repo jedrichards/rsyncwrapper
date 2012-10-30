@@ -47,11 +47,11 @@ The `options` argument is an object literal with the following possible fields:
 
 *[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required and result in fairly heavy disk I/O on both sides.
 
-For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
-
 #### `dryRun`
 
 *[boolean]* Value specifying whether rsync should simply perform a dry run with the given options, i.e. not modify the file system put output verbose information to stdout about what actions it would have taken.
+
+For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
 
 ### Tests
