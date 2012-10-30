@@ -100,7 +100,7 @@ rsync({
 });
 ```
 
-Syncronise the contents of a local directory with a directory on a remote host using the checksum algorithm to determine if a file needs copying:
+Syncronise the contents of a directory on a remote host with the contents of a local directory using the checksum algorithm to determine if a file needs copying:
 
 ```javascript
 rsync({
