@@ -49,10 +49,9 @@ The `options` argument is an object literal with the following possible fields:
 
 #### `dryRun`
 
-*[boolean]* Value specifying whether rsync should simply perform a dry run with the given options, i.e. not modify the file system put output verbose information to stdout about what actions it would have taken.
+*[boolean]* Value specifying whether rsync should simply perform a dry run with the given options, i.e. not modify the file system but instead output verbose information to stdout about what actions it would have taken.
 
 For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
-
 
 ### Tests
 
