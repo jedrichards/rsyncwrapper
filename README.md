@@ -56,7 +56,7 @@ For extra information and subtlety relating to these options please consult the 
 
 ### Tests
 
-Basic tests are run via [Vows Async BDD](http://vowsjs.org/) and [Grunt](http://gruntjs.com/). To test rsyncwrapper install it with the devDependancies and then run:
+Basic tests are run via [Vows Async BDD](http://vowsjs.org/) and [Grunt](http://gruntjs.com/). To test rsyncwrapper install it with the devDependancies, install Grunt and Vows globally, and then invoke:
 
     npm test
 
@@ -65,8 +65,6 @@ Basic tests are run via [Vows Async BDD](http://vowsjs.org/) and [Grunt](http://
 Copy a single file to another location. If the `dest` folder doesn't exist rsync will do a `mkdir` and create it. However it will only `mkdir` one missing directory deep (i.e. not the equivalent of `mkdir -p`).
 
 ```javascript
-var rsync = require("rsyncwrapper").rsync;
-
 rsync({
     src: "./file.txt",
     dest: "./tmp/file.txt"
@@ -81,8 +79,6 @@ rsync({
 ```
 
 Copy the contents of a directory to another folder, while excluding `txt` files. Note the trailing `/` on the `src` folder and the absence of a trailing `/` on the `dest` folder - this is the required format when copy the contents of a folder. Again rsync will only `mkdir` one level deep:
-
-var rsync = require("rsyncwrapper").rsync;
 
 ```javascript
 rsync({
@@ -122,4 +118,4 @@ rsync({
 
 ## TODO
 
-- Add more tests to cover usage of more options.
+- Add tests to cover usage of more options.
