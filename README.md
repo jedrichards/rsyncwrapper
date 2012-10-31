@@ -21,22 +21,28 @@ The `callback` function gets three arguments `(error,stdout,stderr)`.
 
 The `options` argument is an object literal with the following possible fields:
 
-##### `src`
-[string|required] The source file or directory to copy. Path is relative to the Node app's folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
-
-* `dest` *[string] required* The destination file or directory to copy to. Path is relative to the Node app's folder, e.g. `./tmp/file.txt` or `/tmp` etc.
-
-* `host` *[string]* Optional remote host string for the `dest`, e.g. `user@1.2.3.4` or `ssh-host-alias` etc.
-
-`recursive` *[boolean]* Boolean value specifying whether to copy directories and recurse through their contents. Without this option set to `true` rsync will only copy files.
-
-`syncDest` *[boolean]* Value specifying whether files that aren't in the `src` path should be deleted from the `dest` path. In otherwords whether rsync should syncronise the `dest` with the `src`. Take care with this option since it could cause data loss if misconfigured. Use in conjunction with the `dryRun` option initially.
-
-`exclude` *[array]* An array of exclude pattern strings to exclude from the copy operation. For example, `"*.txt"`, `"some-dir"`, `"some-dir/some-file.txt"` etc.
-
-`compareMode` *[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required and result in fairly heavy disk I/O on both sides.
-
-`dryRun` *[boolean]* Value specifying whether rsync should simply perform a dry run with the given options, i.e. not modify the file system but instead output verbose information to stdout about what actions it would have taken.
+```javascript
+{
+    src: "some/path",           // Required string, path to file or dir to copy.
+    dest: "some/path",          // Required string, path to copy destination.
+    host: "user@host",          // Optional string, remote host to prefix to dest if copying over
+                                // ssh. Required public/private key passwordlessly ssh access to
+                                // your host to work.
+    recursive: true,            // Optional boolean, recursively copy dirs, sub-dirs and files. Only
+                                // files in the root of src are copied unless this option is true.
+    syncDest: true,             // Optional boolean, delete objects in dest that aren't present
+                                // in src. Take care with this option, since misconfiguration
+                                // could cause data loss. Maybe dryRun first?
+    compareMode: "checksum",    // Optional string, adjust the way rsync determines if files need
+                                // copying. By default rsync will check using file mod date and size.
+                                // Set this option to "checksum" to use a 128bit checksum to check
+                                // if a file has changed, or "sizeOnly" to only use a file's size.
+    exclude: ["*.txt"],         // Optional array of rsync patterns to exclude from the operation.
+    dryRyn: false,              // Optional boolen, if true rsync will output verbose info to stdout
+                                // about the actions it would take but does not modify the filesystem.
+    args: ["--verbose"]         // Optional array of any additional rsync args you'd like to include.
+}
+```
 
 For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
