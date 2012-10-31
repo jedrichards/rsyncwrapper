@@ -17,7 +17,12 @@ var rsync = require("rsyncwrapper").rsync;
 rsync(options,[callback]);
 ```
 
-The `callback` function gets three arguments `(error,stdout,stderr)`.
+The `callback` function gets three arguments `(error,stdout,stderr,cmd)`.
+
+`error`: An `Error` object if rsync failed, otherwise `null`.
+`stdout`: stdout from rsync.
+`stderr`: stderr from rsync.
+`cmd`: The command string that was used to invoke rsync for debugging purposes.
 
 The `options` argument is an object literal with the following possible fields:
 
@@ -26,8 +31,8 @@ The `options` argument is an object literal with the following possible fields:
     src: "some/path",           // Required string, path to file or dir to copy.
     dest: "some/path",          // Required string, path to copy destination.
     host: "user@host",          // Optional string, remote host to prefix to dest if copying over
-                                // ssh. Required public/private key passwordlessly ssh access to
-                                // your host to work.
+                                // ssh. Needs public/private key passwordless ssh access to your
+                                // host to be working on your workstation.
     recursive: true,            // Optional boolean, recursively copy dirs, sub-dirs and files. Only
                                 // files in the root of src are copied unless this option is true.
     syncDest: true,             // Optional boolean, delete objects in dest that aren't present
@@ -44,7 +49,9 @@ The `options` argument is an object literal with the following possible fields:
 }
 ```
 
-For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
+The above options are provided for convenience and are designed to cover the most common use cases for rsync, they don't necessarily map directly to single rsync arguments with the same names. If you'd like to handcraft your rsync command then just use the `src`, `dest` and `args` options.
+
+For extra information and subtlety relating to rsync options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
 ### Tests
 
