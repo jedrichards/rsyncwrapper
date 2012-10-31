@@ -21,11 +21,12 @@ The `callback` function gets three arguments `(error,stdout,stderr)`.
 
 The `options` argument is an object literal with the following possible fields:
 
-`src` *[string] required* The source file or directory to copy. Path is relative to the Node app's folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
+##### `src`
+[string|required] The source file or directory to copy. Path is relative to the Node app's folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
 
-`dest` *[string] required* The destination file or directory to copy to. Path is relative to the Node app's folder, e.g. `./tmp/file.txt` or `/tmp` etc.
+* `dest` *[string] required* The destination file or directory to copy to. Path is relative to the Node app's folder, e.g. `./tmp/file.txt` or `/tmp` etc.
 
-`host` *[string]* Optional remote host string for the `dest`, e.g. `user@1.2.3.4` or `ssh-host-alias` etc.
+* `host` *[string]* Optional remote host string for the `dest`, e.g. `user@1.2.3.4` or `ssh-host-alias` etc.
 
 `recursive` *[boolean]* Boolean value specifying whether to copy directories and recurse through their contents. Without this option set to `true` rsync will only copy files.
 
