@@ -106,7 +106,7 @@ rsync({
     dest: "/var/www/remote-dest",
     host: "user@1.2.3.4",
     recursive: true,
-    delete: true,
+    syncDest: true,
     compareMode: "checksum"
 },function (error,stdout,stderr) {
     if ( error ) {
