@@ -17,7 +17,7 @@ var rsync = require("rsyncwrapper").rsync;
 rsync(options,[callback]);
 ```
 
-The `callback` function gets three arguments `(error,stdout,stderr,cmd)`.
+The `callback` function gets four arguments `(error,stdout,stderr,cmd)`.
 
 `error`: An `Error` object if rsync failed, otherwise `null`.
 
@@ -70,7 +70,7 @@ Copy a single file to another location. If the `dest` folder doesn't exist rsync
 rsync({
     src: "./file.txt",
     dest: "./tmp/file.txt"
-},function (error,stdout,stderr) {
+},function (error,stdout,stderr,cmd) {
     if ( error ) {
         // failed
         console.log(error.message);
@@ -88,7 +88,7 @@ rsync({
     dest: "./dest-folder",
     recursive: true,
     exclude: ["*.txt"]
-},function (error,stdout,stderr) {
+},function (error,stdout,stderr,cmd) {
     if ( error ) {
         // failed
         console.log(error.message);
@@ -108,7 +108,7 @@ rsync({
     recursive: true,
     syncDest: true,
     compareMode: "checksum"
-},function (error,stdout,stderr) {
+},function (error,stdout,stderr,cmd) {
     if ( error ) {
         // failed
         console.log(error.message);
