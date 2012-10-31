@@ -12,7 +12,7 @@ A reasonably modern version of rsync (>=2.6.9) in your PATH.
 
 ### Usage
 
-javascript```
+```javascript
 var rsync = require("rsyncwrapper").rsync;
 rsync(options,[callback]);
 ```
