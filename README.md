@@ -20,8 +20,11 @@ rsync(options,[callback]);
 The `callback` function gets three arguments `(error,stdout,stderr,cmd)`.
 
 `error`: An `Error` object if rsync failed, otherwise `null`.
+
 `stdout`: stdout from rsync.
+
 `stderr`: stderr from rsync.
+
 `cmd`: The command string that was used to invoke rsync for debugging purposes.
 
 The `options` argument is an object literal with the following possible fields:
