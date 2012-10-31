@@ -8,56 +8,42 @@ A reasonably modern version of rsync (>=2.6.9) in your PATH.
 
 ### Installation
 
-    npm install rsyncwrapper
+    $ npm install rsyncwrapper
 
 ### Usage
 
-    var rsync = require("rsyncwrapper").rsync;
-    rsync(options,[callback]);
+javascript```
+var rsync = require("rsyncwrapper").rsync;
+rsync(options,[callback]);
+```
 
 The `callback` function gets three arguments `(error,stdout,stderr)`.
 
 The `options` argument is an object literal with the following possible fields:
 
-#### `src`
+`src` *[string] required* The source file or directory to copy. Path is relative to the Node app's folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
 
-*[required string]* The source file or directory to copy. Path is relative to the Node app's folder, e.g. `./file.txt` or `/home/user/dir-to-copy/` etc.
+`dest` *[string] required* The destination file or directory to copy to. Path is relative to the Node app's folder, e.g. `./tmp/file.txt` or `/tmp` etc.
 
-#### `dest`
+`host` *[string]* Optional remote host string for the `dest`, e.g. `user@1.2.3.4` or `ssh-host-alias` etc.
 
-*[required string]* The destination file or directory to copy to. Path is relative to the Node app's folder, e.g. `./tmp/file.txt` or `/tmp` etc.
+`recursive` *[boolean]* Boolean value specifying whether to copy directories and recurse through their contents. Without this option set to `true` rsync will only copy files.
 
-#### `host`
+`syncDest` *[boolean]* Value specifying whether files that aren't in the `src` path should be deleted from the `dest` path. In otherwords whether rsync should syncronise the `dest` with the `src`. Take care with this option since it could cause data loss if misconfigured. Use in conjunction with the `dryRun` option initially.
 
-*[string]* Optional remote host string for the `dest`, e.g. `user@1.2.3.4` or `ssh-host-alias` etc.
+`exclude` *[array]* An array of exclude pattern strings to exclude from the copy operation. For example, `"*.txt"`, `"some-dir"`, `"some-dir/some-file.txt"` etc.
 
-#### `recursive`
+`compareMode` *[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required and result in fairly heavy disk I/O on both sides.
 
-*[boolean]* Boolean value specifying whether to copy directories and recurse through their contents. Without this option set to `true` rsync will only copy files.
-
-#### `syncDest`
-
-*[boolean]* Value specifying whether files that aren't in the `src` path should be deleted from the `dest` path. In otherwords whether rsync should syncronise the `dest` with the `src`. Take care with this option since it could cause data loss if misconfigured. Use in conjunction with the `dryRun` option initially.
-
-#### `exclude`
-
-*[array]* An array of exclude pattern strings to exclude from the copy operation. For example, `"*.txt"`, `"some-dir"`, `"some-dir/some-file.txt"` etc.
-
-#### `compareMode`
-
-*[string]* By default rsync will use an algorithm based on file size and modification date to determine if a file needs to be copied. Set the `compareMode` string to modify this behaviour. A value of `sizeOnly` will cause rsync to only check the size of the file to determine if it has changed and needs copying. A value of `checksum` will compare 128bit file checksums to see if copying is required and result in fairly heavy disk I/O on both sides.
-
-#### `dryRun`
-
-*[boolean]* Value specifying whether rsync should simply perform a dry run with the given options, i.e. not modify the file system but instead output verbose information to stdout about what actions it would have taken.
+`dryRun` *[boolean]* Value specifying whether rsync should simply perform a dry run with the given options, i.e. not modify the file system but instead output verbose information to stdout about what actions it would have taken.
 
 For extra information and subtlety relating to these options please consult the [rsync manpages](http://linux.die.net/man/1/rsync).
 
 ### Tests
 
-Basic tests are run via [Vows Async BDD](http://vowsjs.org/) and [Grunt](http://gruntjs.com/). To test rsyncwrapper install it with the devDependancies, install Grunt and Vows globally, and then invoke:
+Basic tests are run on [Vows Async BDD](http://vowsjs.org/) via this package's Gruntfile. To test rsyncwrapper clone the repo and ensure that the devDependancies are present. Additionally ensure that Grunt and Vows are installed globally, and then invoke:
 
-    npm test
+    $ npm test
 
 ### Examples
 
