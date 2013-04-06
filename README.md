@@ -36,6 +36,7 @@ The `options` argument is an object literal with the following possible fields:
     host: "user@host",          // Optional string, remote host to prefix to dest if copying over
                                 // ssh. Needs public/private key passwordless ssh access to your
                                 // host to be working on your workstation.
+    port: "1234",               // If your SSH host uses a non standard SSH port then set it here.
     recursive: true,            // Optional boolean, recursively copy dirs, sub-dirs and files. Only
                                 // files in the root of src are copied unless this option is true.
     syncDest: true,             // Optional boolean, delete objects in dest that aren't present
