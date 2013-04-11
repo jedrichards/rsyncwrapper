@@ -34,7 +34,7 @@ The `options` argument is an object literal with the following possible fields:
     src: "some/path",           // Required string, path to file or dir to copy.
     dest: "some/path",          // Required string, path to copy destination.
     host: "user@host",          // Optional string, remote host to prefix to dest if copying over
-                                // ssh. Needs public/private key passwordless ssh access to your
+                                // ssh. Needs public/private key passwordless SSH access to your
                                 // host to be working on your workstation.
     port: "1234",               // If your SSH host uses a non standard SSH port then set it here.
     recursive: true,            // Optional boolean, recursively copy dirs, sub-dirs and files. Only
@@ -47,7 +47,7 @@ The `options` argument is an object literal with the following possible fields:
                                 // Set this option to "checksum" to use a 128bit checksum to check
                                 // if a file has changed, or "sizeOnly" to only use a file's size.
     exclude: ["*.txt"],         // Optional array of rsync patterns to exclude from the operation.
-    dryRyn: false,              // Optional boolen, if true rsync will output verbose info to stdout
+    dryRun: false,              // Optional boolean, if true rsync will output verbose info to stdout
                                 // about the actions it would take but does not modify the filesystem.
     args: ["--verbose"]         // Optional array of any additional rsync args you'd like to include.
 }
