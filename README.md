@@ -31,7 +31,9 @@ The `options` argument is an object literal with the following possible fields:
 
 ```javascript
 {
-    src: "some/path",           // Required string, path to file or dir to copy.
+    src: "some/path",           // Required string, path to file or dir to copy. src can also be
+                                // an array of strings for copying multiple files, for example:
+                                // ["./dir-a/file1","./dir-b/file2"]
     dest: "some/path",          // Required string, path to copy destination.
     host: "user@host",          // Optional string, remote host to prefix to dest if copying over
                                 // ssh. Needs public/private key passwordless SSH access to your

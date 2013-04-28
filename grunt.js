@@ -27,7 +27,7 @@ module.exports = function(grunt) {
         },
         vows: {
             all: {
-                files: ["tests/package.js","tests/single-copy.js","tests/multi-copy.js"],
+                files: ["tests/package.js","tests/single-copy.js","tests/multi-copy.js","tests/src-as-array.js"],
                 reporter: "spec",
                 verbose: false,
                 silent: false,
