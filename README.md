@@ -44,6 +44,10 @@ The `options` argument is an object literal with the following possible fields:
     syncDest: true,             // Optional boolean, delete objects in dest that aren't present
                                 // in src. Take care with this option, since misconfiguration
                                 // could cause data loss. Maybe dryRun first?
+    syncDestIgnoreExcl: true,   // Optional boolean, delete objects in dest that aren't present
+                                // in src. Ignores excluded. Useful for such folders as 
+                                // `node_modules`. Take care with this option, since misconfiguration
+                                // could cause data loss. Maybe dryRun first?
     compareMode: "checksum",    // Optional string, adjust the way rsync determines if files need
                                 // copying. By default rsync will check using file mod date and size.
                                 // Set this option to "checksum" to use a 128bit checksum to check
