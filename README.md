@@ -45,7 +45,7 @@ The `options` argument is an object literal with the following possible fields:
                                 // in src. Take care with this option, since misconfiguration
                                 // could cause data loss. Maybe dryRun first?
     syncDestIgnoreExcl: true,   // Optional boolean, delete objects in dest that aren't present
-                                // in src. Ignores excluded. Useful for such folders as 
+                                // in src. Ignores excluded. Useful for such folders as
                                 // `node_modules`. Take care with this option, since misconfiguration
                                 // could cause data loss. Maybe dryRun first?
     compareMode: "checksum",    // Optional string, adjust the way rsync determines if files need
@@ -53,6 +53,7 @@ The `options` argument is an object literal with the following possible fields:
                                 // Set this option to "checksum" to use a 128bit checksum to check
                                 // if a file has changed, or "sizeOnly" to only use a file's size.
     exclude: ["*.txt"],         // Optional array of rsync patterns to exclude from the operation.
+    include: ["*.txt"],         // Optional array of rsync patterns *not* to exclude.
     dryRun: false,              // Optional boolean, if true rsync will output verbose info to stdout
                                 // about the actions it would take but does not modify the filesystem.
     args: ["--verbose"]         // Optional array of any additional rsync args you'd like to include.
