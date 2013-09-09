@@ -29,36 +29,53 @@ The `callback` function gets four arguments `(error,stdout,stderr,cmd)`.
 
 The `options` argument is an object literal with the following possible fields:
 
-```javascript
-{
-    src: "some/path",           // Required string, path to file or dir to copy. src can also be
-                                // an array of strings for copying multiple files, for example:
-                                // ["./dir-a/file1","./dir-b/file2"]
-    dest: "some/path",          // Required string, path to copy destination.
-    host: "user@host",          // Optional string, remote host to prefix to dest if copying over
-                                // ssh. Needs public/private key passwordless SSH access to your
-                                // host to be working on your workstation.
-    port: "1234",               // If your SSH host uses a non standard SSH port then set it here.
-    recursive: true,            // Optional boolean, recursively copy dirs, sub-dirs and files. Only
-                                // files in the root of src are copied unless this option is true.
-    syncDest: true,             // Optional boolean, delete objects in dest that aren't present
-                                // in src. Take care with this option, since misconfiguration
-                                // could cause data loss. Maybe dryRun first?
-    syncDestIgnoreExcl: true,   // Optional boolean, delete objects in dest that aren't present
-                                // in src. Ignores excluded. Useful for such folders as
-                                // `node_modules`. Take care with this option, since misconfiguration
-                                // could cause data loss. Maybe dryRun first?
-    compareMode: "checksum",    // Optional string, adjust the way rsync determines if files need
-                                // copying. By default rsync will check using file mod date and size.
-                                // Set this option to "checksum" to use a 128bit checksum to check
-                                // if a file has changed, or "sizeOnly" to only use a file's size.
-    exclude: ["*.txt"],         // Optional array of rsync patterns to exclude from the operation.
-    include: ["*.txt"],         // Optional array of rsync patterns *not* to exclude.
-    dryRun: false,              // Optional boolean, if true rsync will output verbose info to stdout
-                                // about the actions it would take but does not modify the filesystem.
-    args: ["--verbose"]         // Optional array of any additional rsync args you'd like to include.
-}
-```
+#### `src [String|Array<String>] *required`
+
+Path(s) to file(s) or dir(s) to copy. `src` can also be an array of strings for copying multiple files. Examples, `"./dist"` or `["./dir-a/file1","./dir-b/file2"]`.
+
+#### `dest [String] *required`
+
+Path to destination. Example, `"/var/www/mysite.tld"`.
+
+#### `host [String]`
+
+Remote host if copying over ssh. Needs public/private key passwordless SSH access to your host to be setup and working on your workstation. Example, `"user@123.123.123.123"`. This value could also be a ssh host alias if you have any setup in your ssh config.
+
+#### `port [String]`
+
+If your ssh host uses a non standard SSH port then set it here. Example, `"1234"`.
+
+#### `recursive [Boolean]`
+
+Recurse into directories. This is `false` by default which means only files in the `src` root are copied. Equivalent to the `--recursive` rsync command line flag.
+
+#### `syncDest [Boolean]`
+
+Delete objects in `dest` that aren't present in `src`. Also deletes files that have been specifically excluded from transfer in `dest`. Take care with this option, since misconfiguration could cause data loss. Equivalent to setting both the `--delete` and `--delete-excluded` rsync command line flags.
+
+#### `syncDestIgnoreExcl [Boolean]`
+
+The same as `syncDest`, but without the `--delete-excluded` behaviour. One use case for using this option could be while syncing a Node app to a server: you want to exclude transferring the local `node_modules` folder while retaining the remote `node_modules` folder.
+
+#### `compareMode [String] enum("checksum"|"sizeOnly")
+
+By default files will be compared by modified date and file size. Set this value to `checksum` to compare by a 128bit checksum, or `sizeOnly` to compare only by file size.
+
+#### `exclude [Array<String>]`
+
+Optional array of rsync patterns to exclude from transfer.
+
+#### `include [Array<String>]`
+
+Optional array of rsync patterns to specifically include in the transfer if previously excluded.
+
+#### `dryRun [Boolean]`
+
+Buffer verbose information to stdout about the actions rsyncwrapper would take without modifying the filesystem. Equivalent to setting both the `--dry-run` and `--verbose` rsync command line flags.
+
+#### `args [Array<String>]`
+
+Array of additional arbitrary rsync command line options and flags.
 
 The above options are provided for convenience and are designed to cover the most common use cases for rsync, they don't necessarily map directly to single rsync arguments with the same names. If you'd like to handcraft your rsync command then just use the `src`, `dest` and `args` options.
 
