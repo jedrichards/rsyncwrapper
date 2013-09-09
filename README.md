@@ -29,51 +29,51 @@ The `callback` function gets four arguments `(error,stdout,stderr,cmd)`.
 
 The `options` argument is an object literal with the following possible fields:
 
-#### `src [String|Array<String>] *required`
+##### `src [String|Array<String>] *required`
 
 Path(s) to file(s) or dir(s) to copy. `src` can also be an array of strings for copying multiple files. Examples, `"./dist"` or `["./dir-a/file1","./dir-b/file2"]`.
 
-#### `dest [String] *required`
+##### `dest [String] *required`
 
 Path to destination. Example, `"/var/www/mysite.tld"`.
 
-#### `host [String]`
+##### `host [String]`
 
 Remote host if copying over ssh. Needs public/private key passwordless SSH access to your host to be setup and working on your workstation. Example, `"user@123.123.123.123"`. This value could also be a ssh host alias if you have any setup in your ssh config.
 
-#### `port [String]`
+##### `port [String]`
 
 If your ssh host uses a non standard SSH port then set it here. Example, `"1234"`.
 
-#### `recursive [Boolean]`
+##### `recursive [Boolean]`
 
 Recurse into directories. This is `false` by default which means only files in the `src` root are copied. Equivalent to the `--recursive` rsync command line flag.
 
-#### `syncDest [Boolean]`
+##### `syncDest [Boolean]`
 
 Delete objects in `dest` that aren't present in `src`. Also deletes files that have been specifically excluded from transfer in `dest`. Take care with this option, since misconfiguration could cause data loss. Equivalent to setting both the `--delete` and `--delete-excluded` rsync command line flags.
 
-#### `syncDestIgnoreExcl [Boolean]`
+##### `syncDestIgnoreExcl [Boolean]`
 
 The same as `syncDest`, but without the `--delete-excluded` behaviour. One use case for using this option could be while syncing a Node app to a server: you want to exclude transferring the local `node_modules` folder while retaining the remote `node_modules` folder.
 
-#### `compareMode [String] enum("checksum"|"sizeOnly")
+##### `compareMode [String] enum("checksum"|"sizeOnly")
 
 By default files will be compared by modified date and file size. Set this value to `checksum` to compare by a 128bit checksum, or `sizeOnly` to compare only by file size.
 
-#### `exclude [Array<String>]`
+##### `exclude [Array<String>]`
 
 Optional array of rsync patterns to exclude from transfer.
 
-#### `include [Array<String>]`
+##### `include [Array<String>]`
 
 Optional array of rsync patterns to specifically include in the transfer if previously excluded.
 
-#### `dryRun [Boolean]`
+##### `dryRun [Boolean]`
 
 Buffer verbose information to stdout about the actions rsyncwrapper would take without modifying the filesystem. Equivalent to setting both the `--dry-run` and `--verbose` rsync command line flags.
 
-#### `args [Array<String>]`
+##### `args [Array<String>]`
 
 Array of additional arbitrary rsync command line options and flags.
 
