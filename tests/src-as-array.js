@@ -17,7 +17,6 @@ exports.suite = vows.describe("Copy multiple files using src as array").addBatch
             },this.callback);
         },
         "does not error": function (error,stdout,stderr,cmd) {
-            console.log(cmd);
             assert.isNull(error);
         },
         "results in a dir that": {

@@ -62,7 +62,10 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
                 src: srcDir,
                 dest: destDirDryRun,
                 recursive: true,
-                dryRun: true
+                dryRun: true,
+                onStdout: function (data) {
+                    console.log(data);
+                }
             },this.callback);
         },
         "does not error": function (error,stdout,stderr) {

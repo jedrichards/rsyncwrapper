@@ -73,6 +73,14 @@ Optional array of rsync patterns to specifically include in the transfer if prev
 
 Buffer verbose information to stdout about the actions rsyncwrapper would take without modifying the filesystem. Equivalent to setting both the `--dry-run` and `--verbose` rsync command line flags.
 
+#### `onStdout [Function]`
+
+Optional callback function. Called every time rsync outputs to `stdout`. Use this to print rsync output as it happens, rather than all at the end. Example: `function (data) { console.log(data) }`.
+
+#### `onStderr [Function]`
+
+Optional callback function. Called every time rsync outputs to `stderr`. Use this to print rsync error output as it happens, rather than all at the end. Example: `function (data) { console.log(data) }`.
+
 ##### `args [Array<String>]`
 
 Array of additional arbitrary rsync command line options and flags.
