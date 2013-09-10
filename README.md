@@ -1,6 +1,6 @@
 ## rsyncwrapper
 
-An async wrapper to the rsync command line utility for Node.js.
+An async wrapper to the rsync command line utility for Node.js. Also available as the Grunt task [grunt-rsync](https://github.com/jedrichards/grunt-rsync).
 
 ### Prerequisites
 
