@@ -1,6 +1,6 @@
 {
     "name": "rsyncwrapper",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "description": "An async wrapper to the rsync command line utility for Node.js.",
     "main": "lib/rsyncwrapper",
     "repository": {
