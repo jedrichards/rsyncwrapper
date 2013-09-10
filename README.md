@@ -45,6 +45,10 @@ Remote host if copying over ssh. Needs public/private key passwordless SSH acces
 
 If your ssh host uses a non standard SSH port then set it here. Example, `"1234"`.
 
+##### `privateKey [String]`
+
+To specify an SSH private key other than the default for this host. Example, `"~/.ssh/aws.pem"`
+
 ##### `recursive [Boolean]`
 
 Recurse into directories. This is `false` by default which means only files in the `src` root are copied. Equivalent to the `--recursive` rsync command line flag.
