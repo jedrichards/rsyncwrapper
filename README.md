@@ -67,7 +67,7 @@ Optional array of rsync patterns to exclude from transfer.
 
 ##### `include [Array<String>]`
 
-Optional array of rsync patterns to specifically include in the transfer if previously excluded.
+Optional array of rsync patterns to include in the transfer, if previously excluded. Exclude patterns are defined before include patterns when building the rsync command.
 
 ##### `dryRun [Boolean]`
 
