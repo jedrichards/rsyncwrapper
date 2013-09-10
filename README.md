@@ -57,7 +57,7 @@ Delete objects in `dest` that aren't present in `src`. Also deletes files that h
 
 The same as `syncDest`, but without the `--delete-excluded` behaviour. One use case for using this option could be while syncing a Node app to a server: you want to exclude transferring the local `node_modules` folder while retaining the remote `node_modules` folder.
 
-##### `compareMode [String] enum("checksum"|"sizeOnly")
+##### `compareMode [String] enum("checksum"|"sizeOnly")`
 
 By default files will be compared by modified date and file size. Set this value to `checksum` to compare by a 128bit checksum, or `sizeOnly` to compare only by file size.
 
