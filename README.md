@@ -37,9 +37,9 @@ Path(s) to file(s) or dir(s) to copy. `src` can also be an array of strings for 
 
 Path to destination. Example, `"/var/www/mysite.tld"`.
 
-##### `host [String]`
+##### `ssh [Bool]`
 
-Remote host if copying over ssh. Needs public/private key passwordless SSH access to your host to be setup and working on your workstation. Example, `"user@123.123.123.123"`. This value could also be a ssh host alias if you have any setup in your ssh config.
+Run rsync over ssh.  This is `false` by default.  To use this you need to have public/private key passwordless SSH access setup and working on your workstation.  If set to `true`, you should specify a hostname as part of your src or dest options.
 
 ##### `port [String]`
 
@@ -140,8 +140,8 @@ Syncronise the contents of a directory on a remote host with the contents of a l
 ```javascript
 rsync({
     src: "./local-src/",
-    dest: "/var/www/remote-dest",
-    host: "user@1.2.3.4",
+    dest: "user@1.2.3.4:/var/www/remote-dest",
+    ssh: true,
     recursive: true,
     syncDest: true,
     compareMode: "checksum"
