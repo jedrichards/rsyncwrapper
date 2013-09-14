@@ -32,6 +32,7 @@ module.exports = function(grunt) {
                     "tests/single-copy.js",
                     "tests/multi-copy.js",
                     "tests/src-as-array.js",
+                    "tests/remote-host.js",
                     "tests/remote-dest.js",
                     "tests/remote-src.js"
                 ],
