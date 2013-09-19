@@ -85,6 +85,10 @@ Optional callback function. Called every time rsync outputs to `stdout`. Use thi
 
 Optional callback function. Called every time rsync outputs to `stderr`. Use this to print rsync error output as it happens, rather than all at the end. Example: `function (data) { console.log(data) }`.
 
+#### 'pull [Boolean]'
+
+Option to allow an rsync from a remote source to a local destination.
+
 ##### `args [Array<String>]`
 
 Array of additional arbitrary rsync command line options and flags.
