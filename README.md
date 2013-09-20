@@ -39,7 +39,7 @@ Path to destination. Example, `"/var/www/mysite.tld"`.
 
 ##### `ssh [Bool]`
 
-Run rsync over ssh.  This is `false` by default.  To use this you need to have public/private key passwordless SSH access setup and working on your workstation.  If set to `true`, you should specify a hostname as part of your src or dest options.
+Run rsync over ssh.  This is `false` by default.  To use this you need to have public/private key passwordless SSH access setup and working on your workstation.  If set to `true`, you should specify ssh host data as part of your `src` or `dest` values, e.g. `user@1.2.3.4:/var/www/site`.
 
 ##### `port [String]`
 
