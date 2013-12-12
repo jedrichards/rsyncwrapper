@@ -83,4 +83,35 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
             }
         }
     }
+}).addBatch({
+    "Copying multiple files to a new dir with a wildcard": {
+        topic: function() {
+            var src = "./tests/fixtures/multiple/*.txt";
+            rsync({
+                src: src,
+                dest: "./tmp/multiple-wildcard",
+                onStdout: function (data) {
+                    console.log(data);
+                }
+            },this.callback);
+        },
+        "outputs the used shell command": function (error,stdout,stderr,cmd) {
+            assert.isNotNull(cmd);
+        },
+        "does not error": function (error,stdout,stderr) {
+            assert.isNull(error);
+        },
+        "produces stdout": function (error,stdout,stderr) {
+            assert.isNotNull(stdout);
+        },
+        "results in a dir that": {
+            topic: function () {
+                fs.readdir(destDir,this.callback);
+            },
+            "has contents": function (error,files) {
+                assert.isNull(error);
+                assert.equal(files.length,3);
+            }
+        }
+    }
 });
