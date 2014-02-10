@@ -9,6 +9,8 @@ var srcDir = "./tests/fixtures/multiple/";
 var destDir = "./tmp/multiple";
 var destDirExclude = "./tmp/multiple-exclude";
 var destDirDryRun = "./tmp/multiple-dry-run";
+var destDirWildcard = "./tmp/multiple-wildcard";
+var destDirArray = "./tmp/multiple-array";
 
 exports.suite = vows.describe("Multi file copy tests").addBatch({
     "Copying multiple files into a dir": {
@@ -62,10 +64,7 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
                 src: srcDir,
                 dest: destDirDryRun,
                 recursive: true,
-                dryRun: true,
-                onStdout: function (data) {
-                    console.log(data);
-                }
+                dryRun: true
             },this.callback);
         },
         "does not error": function (error,stdout,stderr) {
@@ -89,10 +88,7 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
             var src = "./tests/fixtures/multiple/*.txt";
             rsync({
                 src: src,
-                dest: "./tmp/multiple-wildcard",
-                onStdout: function (data) {
-                    console.log(data);
-                }
+                dest: destDirWildcard
             },this.callback);
         },
         "outputs the used shell command": function (error,stdout,stderr,cmd) {
@@ -106,7 +102,39 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
         },
         "results in a dir that": {
             topic: function () {
-                fs.readdir(destDir,this.callback);
+                fs.readdir(destDirWildcard,this.callback);
+            },
+            "has contents": function (error,files) {
+                assert.isNull(error);
+                assert.equal(files.length,3);
+            }
+        }
+    }
+}).addBatch({
+    "Copying multiple files to a new dir with a src array": {
+        topic: function() {
+            var src = [
+                "./tests/fixtures/multiple/multiple1.txt",
+                "./tests/fixtures/multiple/multiple2.txt",
+                "./tests/fixtures/multiple/multiple3.txt"
+            ];
+            rsync({
+                src: src,
+                dest: destDirArray
+            },this.callback);
+        },
+        "outputs the used shell command": function (error,stdout,stderr,cmd) {
+            assert.isNotNull(cmd);
+        },
+        "does not error": function (error,stdout,stderr) {
+            assert.isNull(error);
+        },
+        "produces stdout": function (error,stdout,stderr) {
+            assert.isNotNull(stdout);
+        },
+        "results in a dir that": {
+            topic: function () {
+                fs.readdir(destDirArray,this.callback);
             },
             "has contents": function (error,files) {
                 assert.isNull(error);
