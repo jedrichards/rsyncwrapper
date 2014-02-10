@@ -8,6 +8,7 @@ var rsync = require("../lib/rsyncwrapper").rsync;
 var srcDir = "./tests/fixtures/multiple/";
 var destDir = "./tmp/multiple";
 var destDirExclude = "./tmp/multiple-exclude";
+var destDirExcludeWildcard = "./tmp/multiple-exclude-wildcard";
 var destDirDryRun = "./tmp/multiple-dry-run";
 var destDirWildcard = "./tmp/multiple-wildcard";
 var destDirArray = "./tmp/multiple-array";
@@ -54,6 +55,33 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
             "a dir with a reduced number of files": function (error,files) {
                 assert.isNull(error);
                 assert.equal(files.length,2);
+            }
+        }
+    }
+}).addBatch({
+    "Copying multiple files into a dir with a wildcard exclude pattern": {
+        topic: function() {
+            rsync({
+                src: srcDir,
+                dest: destDirExcludeWildcard,
+                recursive: true,
+                exclude: ["*.txt"]
+            },this.callback);
+        },
+        "does not error": function (error,stdout,stderr) {
+            assert.isNull(error);
+        },
+        "outputs the used shell command": function (error,stdout,stderr,cmd) {
+            assert.isNotNull(cmd);
+            console.log(">>>",cmd);
+        },
+        "results in": {
+            topic: function () {
+                fs.readdir(destDirExcludeWildcard,this.callback);
+            },
+            "a dir with a reduced number of files": function (error,files) {
+                assert.isNull(error);
+                assert.equal(files.length,0);
             }
         }
     }

@@ -27,11 +27,19 @@ The `callback` function gets four arguments `(error,stdout,stderr,cmd)`.
 
 `cmd`: The command string that was used to invoke rsync for debugging purposes.
 
-The `options` argument is an object literal with the following possible fields:
+The `options` argument is an object literal. See below for possible fields.
+
+### Options
 
 ##### `src [String|Array<String>] *required`
 
-Path(s) to file(s) or dir(s) to copy. `src` can also be an array of strings for copying multiple files. Examples, `"./dist"` or `["./dir-a/file1","./dir-b/file2"]`.
+Path to src. Can be a single filename, or an array of filenames. Native shell wildcard expansion is not supported so `*` in paths are currently expanded via `node-glob` at this time. Examples:
+
+```
+"./dist"
+["./dir-a/file1","./dir-b/file2"]
+"./*.foo"
+```
 
 ##### `dest [String] *required`
 
