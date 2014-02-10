@@ -73,7 +73,6 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
         },
         "outputs the used shell command": function (error,stdout,stderr,cmd) {
             assert.isNotNull(cmd);
-            console.log(">>>",cmd);
         },
         "results in": {
             topic: function () {
