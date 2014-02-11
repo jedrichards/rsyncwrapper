@@ -33,21 +33,25 @@ The `options` argument is an object literal. See below for possible fields.
 
 ##### `src [String|Array<String>] *required`
 
-Path to src. Can be a single filename, or an array of filenames. Native shell wildcard expansion is not supported so `*` in paths are currently expanded via `node-glob` at this time. Examples:
+Path to src. Can be a single filename, or an array of filenames. Shell wildcard expansion is supported. Examples:
 
 ```
-"./dist"
-["./dir-a/file1","./dir-b/file2"]
-"./*.foo"
+src: "./dist/"
+src: ["./dir-a/file1","./dir-b/file2"]
+src: "./*.foo"
+src: "foo{1,2,3}.txt"
+etc.
 ```
 
 ##### `dest [String] *required`
 
 Path to destination. Example, `"/var/www/mysite.tld"`.
 
-##### `ssh [Bool]`
+##### `ssh [Bool] default: false`
 
-Run rsync over ssh.  This is `false` by default.  To use this you need to have public/private key passwordless ssh access setup and working between your workstation and your host.  If set to `true`, you should specify ssh host data as part of your `src` or `dest` values, e.g. `user@1.2.3.4:/var/www/site`. Another good approach is to define a host alias in your ssh config and just reference that alias in your rsync options.
+Run rsync over ssh.  This is `false` by default.  To use this you need to have public/private key passwordless ssh access setup and working between your workstation and your host.  If set to `true`, you should specify ssh host data as part of your `src` or `dest` values, e.g. `user@1.2.3.4:/var/www/site`.
+
+Another good approach is to define a host alias in your ssh config and just reference that alias in your rsync options.
 
 ##### `port [String]`
 
@@ -57,19 +61,19 @@ If your ssh host uses a non standard SSH port then set it here. Example, `"1234"
 
 To specify an SSH private key other than the default for this host. Example, `"~/.ssh/aws.pem"`
 
-##### `recursive [Boolean]`
+##### `recursive [Boolean] default: false`
 
 Recurse into directories. This is `false` by default which means only files in the `src` root are copied. Equivalent to the `--recursive` rsync command line flag.
 
-##### `syncDest [Boolean]`
+##### `syncDest [Boolean] default: false`
 
 Delete objects in `dest` that aren't present in `src`. Also deletes files that have been specifically excluded from transfer in `dest`. Take care with this option, since misconfiguration could cause data loss. Equivalent to setting both the `--delete` and `--delete-excluded` rsync command line flags.
 
-##### `syncDestIgnoreExcl [Boolean]`
+##### `syncDestIgnoreExcl [Boolean] default: false`
 
 The same as `syncDest`, but without the `--delete-excluded` behaviour. One use case for using this option could be while syncing a Node app to a server: you want to exclude transferring the local `node_modules` folder while retaining the remote `node_modules` folder.
 
-##### `compareMode [String] enum("checksum"|"sizeOnly")`
+##### `compareMode [String] enum: "checksum"|"sizeOnly"`
 
 By default files will be compared by modified date and file size. Set this value to `checksum` to compare by a 128bit checksum, or `sizeOnly` to compare only by file size.
 
@@ -81,7 +85,7 @@ Optional array of rsync patterns to exclude from transfer.
 
 Optional array of rsync patterns to include in the transfer, if previously excluded. Exclude patterns are defined before include patterns when building the rsync command.
 
-##### `dryRun [Boolean]`
+##### `dryRun [Boolean] default: false`
 
 Buffer verbose information to stdout about the actions rsyncwrapper would take without modifying the filesystem. Equivalent to setting both the `--dry-run` and `--verbose` rsync command line flags.
 
