@@ -2,6 +2,11 @@
 
 An async wrapper to the rsync command line utility for Node.js. Also available as the Grunt task [grunt-rsync](https://github.com/jedrichards/grunt-rsync).
 
+### Release notes
+
+- `0.1.0` Now using `child_process.exec` as opposed to `child_process.spawn` to enable proper shell wildcard expansions in the `options.src` value. SSH option handling has been improved.
+- `0.0.1` Initial release.
+
 ### Prerequisites
 
 A reasonably modern version of rsync (>=2.6.9) in your PATH.
