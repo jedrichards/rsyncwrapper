@@ -13,8 +13,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "lodash": "~2.4.1",
-    "glob": "~3.2.8"
+    "lodash": "~2.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
@@ -40,6 +39,6 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.25"
   }
 }
