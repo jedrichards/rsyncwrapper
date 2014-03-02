@@ -4,6 +4,7 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `0.2.0` Now launching the rsync command in a shell like `child_process.exec` (does in Node Core)[https://github.com/joyent/node/blob/937e2e351b2450cf1e9c4d8b3e1a4e2a2def58bb/lib/child_process.js#L589]. This enables us to use `spawn` (and avoid `exec` `maxBuffer`) while retaining shell wildcard expansion).
 - `0.1.0` Now using `child_process.exec` as opposed to `child_process.spawn` to enable proper shell wildcard expansions in the `options.src` value. SSH option handling has been improved.
 - `0.0.1` Initial release.
 
