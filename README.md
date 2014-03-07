@@ -85,11 +85,11 @@ By default files will be compared by modified date and file size. Set this value
 
 ##### `exclude [Array<String>]`
 
-Optional array of rsync patterns to exclude from transfer.
+Optional array of rsync patterns to exclude from transfer.  Include patterns are defined before exclude patterns when building the rsync command.
 
 ##### `include [Array<String>]`
 
-Optional array of rsync patterns to include in the transfer, if previously excluded. Exclude patterns are defined before include patterns when building the rsync command.
+Optional array of rsync patterns to include in the transfer, if previously excluded. Include patterns are defined before exclude patterns when building the rsync command.
 
 ##### `dryRun [Boolean] default: false`
 
