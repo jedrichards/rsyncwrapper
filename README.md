@@ -4,7 +4,8 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
-- `0.4.0` Reworking the way stdin is passed from the process to the rsync child process to facilitate Windows clients being able to read a passphrase from stdin. 
+- `0.4.1` Renamed `syncDest` and `syncDestIgnoreExcl` options to the more scary sounding `deleteAll` and `delete` options in an effort to avoid potential user data loss due to misconfiguration. Updated docs to use the new option names. The old option names will continue to work.
+- `0.4.0` Reworking the way stdin is passed from the process to the rsync child process to facilitate Windows clients being able to read a passphrase from stdin.
 - `0.3.0` Swapping include/exclude order in the generated rsync command. Includes now come before excludes to faciliate the normal way of excluding file patterns with exceptions in rsync. See [#16](https://github.com/jedrichards/rsyncwrapper/pull/16).
 - `0.2.0` Now launching the rsync command in a shell like `child_process.exec` [does in Node Core](https://github.com/joyent/node/blob/937e2e351b2450cf1e9c4d8b3e1a4e2a2def58bb/lib/child_process.js#L589). This enables us to use `spawn`, and avoid `exec` `maxBuffer`, while retaining full shell wildcard expansion.
 - `0.1.0` Now using `child_process.exec` as opposed to `child_process.spawn` to enable proper shell wildcard expansions in the `options.src` value. SSH option handling has been improved.
@@ -73,13 +74,13 @@ To specify an SSH private key other than the default for this host. Example, `"~
 
 Recurse into directories. This is `false` by default which means only files in the `src` root are copied. Equivalent to the `--recursive` rsync command line flag.
 
-##### `syncDest [Boolean] default: false`
+##### :exclamation: `deleteAll [Boolean] default: false`
 
-Delete objects in `dest` that aren't present in `src`. Also deletes files that have been specifically excluded from transfer in `dest`. Take care with this option, since misconfiguration could cause data loss. Equivalent to setting both the `--delete` and `--delete-excluded` rsync command line flags.
+Take care with this option, since misconfiguration could cause data loss. Deletes objects in `dest` that aren't present in `src`, also deletes files in `dest` that have been specifically excluded from transfer. Equivalent to setting both the `--delete` and `--delete-excluded` rsync flags.
 
-##### `syncDestIgnoreExcl [Boolean] default: false`
+##### :exclamation: `delete [Boolean] default: false`
 
-The same as `syncDest`, but without the `--delete-excluded` behaviour. One use case for using this option could be while syncing a Node app to a server: you want to exclude transferring the local `node_modules` folder while retaining the remote `node_modules` folder.
+Take care with this option, since misconfiguration could cause data loss. The same as `deleteAll`, but without the `--delete-excluded` behaviour. One use case for using this option could be while syncing a Node app to a server: you want to exclude transferring the local `node_modules` folder while retaining the remote `node_modules` folder.
 
 ##### `compareMode [String] enum: "checksum"|"sizeOnly"`
 
@@ -125,8 +126,8 @@ Copy a single file to another location. If the `dest` folder doesn't exist rsync
 
 ```javascript
 rsync({
-    src: "./file.txt",
-    dest: "./tmp/file.txt"
+    src: "file.txt",
+    dest: "tmp/file.txt"
 },function (error,stdout,stderr,cmd) {
     if ( error ) {
         // failed
@@ -137,12 +138,12 @@ rsync({
 });
 ```
 
-Copy the contents of a directory to another folder, while excluding `txt` files. Note the trailing `/` on the `src` folder and the absence of a trailing `/` on the `dest` folder - this is the required format when copy the contents of a folder. Again rsync will only `mkdir` one level deep:
+Copy the contents of a directory to another folder, while excluding `txt` files. Note the trailing `/` on the `src` folder and the absence of a trailing `/` on the `dest` folder - this is the required format when copying the contents of a folder. Again rsync will only `mkdir` one level deep:
 
 ```javascript
 rsync({
-    src: "./src-folder/",
-    dest: "./dest-folder",
+    src: "src-folder/",
+    dest: "dest-folder",
     recursive: true,
     exclude: ["*.txt"]
 },function (error,stdout,stderr,cmd) {
@@ -155,16 +156,15 @@ rsync({
 });
 ```
 
-Syncronise the contents of a directory on a remote host with the contents of a local directory using the checksum algorithm to determine if a file needs copying:
+Syncronise the contents of a directory on a remote host with the contents of a local directory. The `deleteAll` option will delete all files on the remote host that either aren't present in the local folder or have been excluded from transfer.
 
 ```javascript
 rsync({
-    src: "./local-src/",
+    src: "local-src/",
     dest: "user@1.2.3.4:/var/www/remote-dest",
     ssh: true,
     recursive: true,
-    syncDest: true,
-    compareMode: "checksum"
+    deleteAll: true // Careful, this could cause data loss
 },function (error,stdout,stderr,cmd) {
     if ( error ) {
         // failed
