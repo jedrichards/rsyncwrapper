@@ -11,6 +11,19 @@ var destDir = "./tmp/";
 var copiedFile = destDir+srcFile;
 
 exports.suite = vows.describe("Set defaul chmod for windows platform").addBatch({
+    "When the platform is not win32": {
+        topic: function() {
+            process.platform = 'linux';
+            rsync({
+                src: srcFilePath,
+                dest: destDir,
+                noExec: true
+            },this.callback);
+        },
+        "results in an rsync command that does not contains --chmod=ugo=rwX": function(error,stdout,stderr,cmd) {
+            assert.equal(cmd, 'rsync user@example.com:tests/fixtures/single.txt ./tmp/');
+        }
+    },
     "When there is no existing chmod argument": {
         topic: function() {
             process.platform = 'win32';
