@@ -33,7 +33,8 @@ module.exports = function(grunt) {
                     "tests/src-as-array.js",
                     "tests/remote-host.js",
                     "tests/remote-dest.js",
-                    "tests/remote-src.js"
+                    "tests/remote-src.js",
+                    "tests/win32-chmod.js"
                 ],
                 options: {
                     reporter: "spec",
