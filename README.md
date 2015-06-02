@@ -87,13 +87,17 @@ Take care with this option, since misconfiguration could cause data loss. The sa
 
 By default files will be compared by modified date and file size. Set this value to `checksum` to compare by a 128bit checksum, or `sizeOnly` to compare only by file size.
 
+##### `include [Array<String>]`
+
+Optional array of rsync patterns to include in the transfer, if previously excluded. Include patterns are defined before exclude patterns when building the rsync command.
+
 ##### `exclude [Array<String>]`
 
 Optional array of rsync patterns to exclude from transfer.  Include patterns are defined before exclude patterns when building the rsync command.
 
-##### `include [Array<String>]`
+##### `excludeFirst [Array<String>]`
 
-Optional array of rsync patterns to include in the transfer, if previously excluded. Include patterns are defined before exclude patterns when building the rsync command.
+Optional array of rsync patterns to exclude from transfer. These are defined *before* the include patterns when building the rsync command. This is useful to exclude specific files or folders that would be included by the include patterns.
 
 ##### `dryRun [Boolean] default: false`
 
