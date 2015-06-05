@@ -4,6 +4,7 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `0.4.3` Added the `excludeFirst` option. See [#34](https://github.com/jedrichards/rsyncwrapper/issues/34).
 - `0.4.2` Add default `chmod` arguments on Windows to fix NTFS permissions, see [#28](https://github.com/jedrichards/rsyncwrapper/issues/28).
 - `0.4.1` Renamed `syncDest` and `syncDestIgnoreExcl` options to the more scary sounding `deleteAll` and `delete` options in an effort to avoid potential user data loss due to misconfiguration. Updated docs to use the new option names. The old option names will continue to work.
 - `0.4.0` Reworking the way stdin is passed from the process to the rsync child process to facilitate Windows clients being able to read a passphrase from stdin.
