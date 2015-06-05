@@ -12,6 +12,8 @@ var destDirExcludeWildcard = "./tmp/multiple-exclude-wildcard";
 var destDirDryRun = "./tmp/multiple-dry-run";
 var destDirWildcard = "./tmp/multiple-wildcard";
 var destDirArray = "./tmp/multiple-array";
+var destDirInclude = "./tmp/multiple-include";
+var destDirPreExclude = "./tmp/multiple-preexclude";
 
 exports.suite = vows.describe("Multi file copy tests").addBatch({
     "Copying multiple files into a dir": {
@@ -166,6 +168,69 @@ exports.suite = vows.describe("Multi file copy tests").addBatch({
             "has contents": function (error,files) {
                 assert.isNull(error);
                 assert.equal(files.length,3);
+            }
+        }
+    }
+}).addBatch({
+    "Copying multiple files to a new dir with include": {
+        topic: function() {
+            var src = "./tests/fixtures/";
+            rsync({
+                src: src,
+                recursive: true,
+                dest: destDirInclude,
+                include: ["multiple/***"],
+                exclude: ["*"]
+            },this.callback);
+        },
+        "outputs the used shell command": function (error,stdout,stderr,cmd) {
+            assert.isNotNull(cmd);
+        },
+        "does not error": function (error,stdout,stderr) {
+            assert.isNull(error);
+        },
+        "produces stdout": function (error,stdout,stderr) {
+            assert.isNotNull(stdout);
+        },
+        "results in a dir that": {
+            topic: function () {
+                fs.readdir(destDirInclude + "/multiple",this.callback);
+            },
+            "has contents": function (error,files) {
+                assert.isNull(error);
+                assert.equal(files.length,3);
+            }
+        }
+    }
+}).addBatch({
+    "Copying multiple files to a new dir with pre-exclude": {
+        topic: function() {
+            var src = "./tests/fixtures/";
+            rsync({
+                src: src,
+                recursive: true,
+                dest: destDirPreExclude,
+                excludeFirst: ["multiple2.txt"],
+                include: ["multiple/***"],
+                exclude: ["*"]
+            },this.callback);
+        },
+        "outputs the used shell command": function (error,stdout,stderr,cmd) {
+            assert.isNotNull(cmd);
+        },
+        "does not error": function (error,stdout,stderr) {
+            assert.isNull(error);
+        },
+        "produces stdout": function (error,stdout,stderr) {
+            assert.isNotNull(stdout);
+        },
+        "results in a dir that": {
+            topic: function () {
+                fs.readdir(destDirPreExclude + "/multiple",this.callback);
+            },
+            "has one less file": function (error,files) {
+                assert.isNull(error);
+                assert.equal(files.length,2);
             }
         }
     }
