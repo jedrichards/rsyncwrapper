@@ -72,6 +72,10 @@ If your ssh host uses a non standard SSH port then set it here. Example, `"1234"
 
 To specify an SSH private key other than the default for this host. Example, `"~/.ssh/aws.pem"`
 
+##### `hostKeyChecking [Boolean]`
+
+Ignore host key checking iff set to `false`. Example, `hostKeyChecking: false`
+
 ##### `recursive [Boolean] default: false`
 
 Recurse into directories. This is `false` by default which means only files in the `src` root are copied. Equivalent to the `--recursive` rsync command line flag.
