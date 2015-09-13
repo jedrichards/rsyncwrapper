@@ -118,7 +118,7 @@ Array of additional arbitrary rsync command line options and flags.
 
 ##### `sshCmdArgs [String]`
 
-String of additional ssh command line arguments.
+String of additional ssh command line arguments and options. You can use this to have more control over the ssh connection. See SSH's clients [man page](https://www.freebsd.org/cgi/man.cgi?query=ssh&sektion=1) for more.
 
 The above options are provided for convenience and are designed to cover the most common use cases for rsync, they don't necessarily map directly to single rsync arguments with the same names. If you'd like to handcraft your rsync command then just use the `src`, `dest` and `args` options.
 
