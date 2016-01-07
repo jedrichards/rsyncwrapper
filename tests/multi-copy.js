@@ -3,7 +3,7 @@
 var fs = require("fs");
 var vows = require("vows");
 var assert = require("assert");
-var rsync = require("../lib/rsyncwrapper").rsync;
+var rsync = require("../lib/rsyncwrapper");
 
 var srcDir = "./tests/fixtures/multiple/";
 var destDir = "./tmp/multiple";

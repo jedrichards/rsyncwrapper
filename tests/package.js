@@ -3,19 +3,25 @@
 var vows = require("vows");
 var assert = require("assert");
 
-var rsyncwrapper = require("../lib/rsyncwrapper");
+var rsync = require("../lib/rsyncwrapper");
 
 exports.suite = vows.describe("Package tests").addBatch({
     "The RSyncWrapper package": {
-        topic: rsyncwrapper,
-        "is not null": function (topic) {
-            assert.isNotNull(topic);
+        topic: rsync,
+        "is not null": function (rsync) {
+            assert.isNotNull(rsync);
         },
-        "has a 'rsync()' function": function (topic) {
-            assert.isFunction(topic.rsync);
+        "exported module is a function": function (rsync) {
+            assert.isFunction(function () {});
         },
-        "errors when started without options": function (topic) {
-            assert.throws(topic.rsync,Error);
+        "throws an error when started without options": function (rsync) {
+            var error;
+            try {
+              rsync();
+            } catch (e) {
+              error = e;
+            }
+            assert.isDefined(error);
         }
     }
 });

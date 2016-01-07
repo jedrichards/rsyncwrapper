@@ -3,7 +3,7 @@
 var fs = require("fs");
 var vows = require("vows");
 var assert = require("assert");
-var rsync = require("../lib/rsyncwrapper").rsync;
+var rsync = require("../lib/rsyncwrapper");
 
 var srcArray = ["./tests/fixtures/multiple/multiple1.txt","./tests/fixtures/multiple/multiple2.txt"]
 var destDir = "./tmp/src-as-array";

@@ -3,7 +3,7 @@
 var fs = require("fs");
 var vows = require("vows");
 var assert = require("assert");
-var rsync = require("../lib/rsyncwrapper").rsync;
+var rsync = require("../lib/rsyncwrapper");
 
 exports.suite = vows.describe("The sshCmdArgs option").addBatch({
     "Adds a single arg to the rsh ssh subcommand": {

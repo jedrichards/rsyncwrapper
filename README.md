@@ -4,7 +4,7 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
-- `0.5.1` Added the `sshCmdArgs` option to enable additional customisation of the rsh ssh subcommand. See [#37](https://github.com/jedrichards/rsyncwrapper/pull/37) and [#38](https://github.com/jedrichards/rsyncwrapper/pull/38). Made the tests pass on modern versions of Node, see [#36]. This package is now tested to work on all versions of Node from `0.10.25` to `5.3.0`.
+- `0.5.1` Added the `sshCmdArgs` option to enable additional customisation of the rsh ssh subcommand. See [#37](https://github.com/jedrichards/rsyncwrapper/pull/37) and [#38](https://github.com/jedrichards/rsyncwrapper/pull/38). Made the tests pass on modern versions of Node, see [#36](https://github.com/jedrichards/rsyncwrapper/issues/36) - this package is now tested to work on all versions of Node from `0.10.25` to `5.3.0`.
 - `0.4.3` Added the `excludeFirst` option. See [#34](https://github.com/jedrichards/rsyncwrapper/issues/34).
 - `0.4.2` Add default `chmod` arguments on Windows to fix NTFS permissions, see [#28](https://github.com/jedrichards/rsyncwrapper/issues/28).
 - `0.4.1` Renamed `syncDest` and `syncDestIgnoreExcl` options to the more scary sounding `deleteAll` and `delete` options in an effort to avoid potential user data loss due to misconfiguration. Updated docs to use the new option names. The old option names will continue to work.
@@ -25,7 +25,7 @@ A reasonably modern version of rsync (>=2.6.9) in your PATH.
 ### Usage
 
 ```javascript
-var rsync = require("rsyncwrapper").rsync;
+var rsync = require("rsyncwrapper");
 rsync(options,[callback]);
 ```
 
