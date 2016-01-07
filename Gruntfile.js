@@ -34,7 +34,8 @@ module.exports = function(grunt) {
                     "tests/remote-host.js",
                     "tests/remote-dest.js",
                     "tests/remote-src.js",
-                    "tests/win32-chmod.js"
+                    "tests/win32-chmod.js",
+                    "tests/ssh-cmd-args.js"
                 ],
                 options: {
                     reporter: "spec",

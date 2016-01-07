@@ -8,9 +8,8 @@ var rsync = require("../lib/rsyncwrapper").rsync;
 var srcFile = "single.txt";
 var srcFilePath = "user@example.com:tests/fixtures/"+srcFile;
 var destDir = "./tmp/";
-var copiedFile = destDir+srcFile;
 
-exports.suite = vows.describe("Set defaul chmod for windows platform").addBatch({
+exports.suite = vows.describe("Set default chmod for Windows platform").addBatch({
     "When not running under Windows": {
         topic: function() {
             rsync({
