@@ -4,6 +4,7 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `0.5.1` Added the `sshCmdArgs` option to enable additional customisation of the rsh ssh subcommand. See [#37](https://github.com/jedrichards/rsyncwrapper/pull/37) and [#38](https://github.com/jedrichards/rsyncwrapper/pull/38). Made the tests pass on modern versions of Node, see [#36]. This package is now tested to work on all versions of Node from `0.10.25` to `5.3.0`.
 - `0.4.3` Added the `excludeFirst` option. See [#34](https://github.com/jedrichards/rsyncwrapper/issues/34).
 - `0.4.2` Add default `chmod` arguments on Windows to fix NTFS permissions, see [#28](https://github.com/jedrichards/rsyncwrapper/issues/28).
 - `0.4.1` Renamed `syncDest` and `syncDestIgnoreExcl` options to the more scary sounding `deleteAll` and `delete` options in an effort to avoid potential user data loss due to misconfiguration. Updated docs to use the new option names. The old option names will continue to work.
@@ -72,9 +73,9 @@ If your ssh host uses a non standard SSH port then set it here. Example, `"1234"
 
 To specify an SSH private key other than the default for this host. Example, `"~/.ssh/aws.pem"`
 
-#### `sshCmdArgs [Array]`
+##### `sshCmdArgs [Array]`
 
-Add an array of arbitrary additional args to the rsh ssh subcommand. This can be useful for turning off strict host key checking to avoid typing `yes` or `no` when connecting to new hosts. Example, `["-o StrictHostKeyChecking=no"]`
+Add an array of arbitrary additional args to the rsh ssh subcommand. This can be useful for turning off strict host key checking to avoid typing `yes` or `no` when connecting to new hosts. See SSH's clients [man page](https://www.freebsd.org/cgi/man.cgi?query=ssh&sektion=1) for more. Example, `["-o StrictHostKeyChecking=no"]`
 
 ##### `recursive [Boolean] default: false`
 
@@ -119,10 +120,6 @@ Optional callback function. Called every time rsync outputs to `stderr`. Use thi
 ##### `args [Array<String>]`
 
 Array of additional arbitrary rsync command line options and flags.
-
-##### `sshCmdArgs [String]`
-
-String of additional ssh command line arguments and options. You can use this to have more control over the ssh connection. See SSH's clients [man page](https://www.freebsd.org/cgi/man.cgi?query=ssh&sektion=1) for more.
 
 The above options are provided for convenience and are designed to cover the most common use cases for rsync, they don't necessarily map directly to single rsync arguments with the same names. If you'd like to handcraft your rsync command then just use the `src`, `dest` and `args` options.
 
@@ -170,7 +167,7 @@ rsync({
 });
 ```
 
-Syncronise the contents of a directory on a remote host with the contents of a local directory. The `deleteAll` option will delete all files on the remote host that either aren't present in the local folder or have been excluded from transfer.
+Synchronize the contents of a directory on a remote host with the contents of a local directory. The `deleteAll` option will delete all files on the remote host that either aren't present in the local folder or have been excluded from transfer.
 
 ```javascript
 rsync({
@@ -188,7 +185,3 @@ rsync({
     }
 });
 ```
-
-## TODO
-
-- Add tests to cover usage of more options.
