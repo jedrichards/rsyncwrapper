@@ -28,6 +28,7 @@ module.exports = function(grunt) {
             all: {
                 src: [
                     "tests/package.js",
+                    "tests/errors.js",
                     "tests/single-copy.js",
                     "tests/multi-copy.js",
                     "tests/src-as-array.js",
