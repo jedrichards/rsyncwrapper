@@ -111,15 +111,15 @@ Optional array of rsync patterns to exclude from transfer. These are defined *be
 
 Buffer verbose information to stdout about the actions rsyncwrapper would take without modifying the filesystem. Equivalent to setting both the `--dry-run` and `--verbose` rsync command line flags.
 
-#### `onStdout [Function]`
+##### `onStdout [Function]`
 
 Optional callback function. Called every time rsync outputs to `stdout`. Use this to print rsync output as it happens, rather than all at the end. Example: `function (data) { console.log(data) }`.
 
-#### `onStderr [Function]`
+##### `onStderr [Function]`
 
 Optional callback function. Called every time rsync outputs to `stderr`. Use this to print rsync error output as it happens, rather than all at the end. Example: `function (data) { console.log(data) }`.
 
-#### `times [Boolean]`
+##### `times [Boolean]`
 
 Uses the rsync `--times` flag to transfer modification times along with the files and update them on the remote system.
 
