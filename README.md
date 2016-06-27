@@ -4,6 +4,7 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `1.0.1` Improved error handling in #45. Added a `times` option for preserving modification times in #44.
 - `1.0.0` Bumped to version 1! Package now considered stable :tada: With this comes a minor API change, the module no longer exports an object with an `rsync` function. Rather the `rsync` function is exported as the main value of the module. Check the [usage](https://github.com/jedrichards/rsyncwrapper#usage) section for an example.
 - `0.5.1` Added the `sshCmdArgs` option to enable additional customisation of the rsh ssh subcommand. See [#37](https://github.com/jedrichards/rsyncwrapper/pull/37) and [#38](https://github.com/jedrichards/rsyncwrapper/pull/38). Made the tests pass on modern versions of Node, see [#36](https://github.com/jedrichards/rsyncwrapper/issues/36) - this package is now tested to work on all versions of Node from `0.10.25` to `5.3.0`.
 - `0.4.3` Added the `excludeFirst` option. See [#34](https://github.com/jedrichards/rsyncwrapper/issues/34).
@@ -117,6 +118,10 @@ Optional callback function. Called every time rsync outputs to `stdout`. Use thi
 #### `onStderr [Function]`
 
 Optional callback function. Called every time rsync outputs to `stderr`. Use this to print rsync error output as it happens, rather than all at the end. Example: `function (data) { console.log(data) }`.
+
+#### `times [Boolean]`
+
+Uses the rsync `--times` flag to transfer modification times along with the files and update them on the remote system.
 
 ##### `args [Array<String>]`
 
