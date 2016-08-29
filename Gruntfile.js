@@ -19,10 +19,14 @@ module.exports = function(grunt) {
         shell: {
             tmpdir : {
                 command: "mkdir tmp"
+            },
+            tmpdir_with_spaces: {
+                command: "mkdir 'tmp with spaces'"
             }
         },
         clean: {
-            tmp: ["tmp"]
+            tmp: ["tmp"],
+            tmp_with_spaces: ["tmp with spaces"]
         },
         vows: {
             all: {
@@ -54,5 +58,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-vows");
 
-    grunt.registerTask("test",["jshint","clean:tmp","shell:tmpdir","vows","clean:tmp"]);
+    grunt.registerTask("test",["jshint","clean:tmp","shell:tmpdir","shell:tmpdir_with_spaces","vows","clean:tmp","clean:tmp_with_spaces"]);
 };
