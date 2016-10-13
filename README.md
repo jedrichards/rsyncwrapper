@@ -4,6 +4,7 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `2.0.1` Upgrade to modern lodash `~4.15.0`
 - `2.0.0` Escape non-escaped spaces in argument paths [#47](https://github.com/jedrichards/rsyncwrapper/pull/47)
 - `1.0.1` Improved error handling in [#45](https://github.com/jedrichards/rsyncwrapper/pull/45). Added a `times` option for preserving modification times in [#44](https://github.com/jedrichards/rsyncwrapper/pull/44).
 - `1.0.0` Bumped to version 1! Package now considered stable :tada: With this comes a minor API change, the module no longer exports an object with an `rsync` function. Rather the `rsync` function is exported as the main value of the module. Check the [usage](https://github.com/jedrichards/rsyncwrapper#usage) section for an example.
