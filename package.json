@@ -3,6 +3,7 @@
   "version": "2.0.1",
   "description": "An async wrapper to the rsync command line utility for Node.js.",
   "main": "lib/rsyncwrapper",
+  "types": "lib/rsyncwrapper.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/jedrichards/rsyncwrapper.git"
