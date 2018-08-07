@@ -1,6 +1,6 @@
 {
   "name": "rsyncwrapper",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "An async wrapper to the rsync command line utility for Node.js.",
   "main": "lib/rsyncwrapper",
   "repository": {
@@ -10,18 +10,11 @@
   "homepage": "https://github.com/jedrichards/rsyncwrapper",
   "bugs": "https://github.com/jedrichards/rsyncwrapper/issues",
   "scripts": {
-    "test": "grunt test"
+    "test": "jest --env=node"
   },
-  "dependencies": {
-    "lodash": "~4.15.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "vows": "~0.7.0",
-    "grunt-vows": "~0.4.0",
-    "grunt-shell": "~0.6.4"
+    "jest": "23.4.2"
   },
   "keywords": [
     "rsync",
@@ -35,10 +28,10 @@
   ],
   "author": {
     "name": "Jed Richards",
-    "email": "jed@seisaku.co.uk"
+    "email": "jedrichards@gmail.com"
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.10.25"
+    "node": ">=8.1.3"
   }
 }
