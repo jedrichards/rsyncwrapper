@@ -4,6 +4,10 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `3.0.0`
+  - Node LTS Carbon `v8.11.3` now minimum Node version
+  - Remove lodash dependency
+  - Port tests to Jest
 - `2.0.1` Upgrade to modern lodash `~4.15.0`
 - `2.0.0` Escape non-escaped spaces in argument paths [#47](https://github.com/jedrichards/rsyncwrapper/pull/47)
 - `1.0.1` Improved error handling in [#45](https://github.com/jedrichards/rsyncwrapper/pull/45). Added a `times` option for preserving modification times in [#44](https://github.com/jedrichards/rsyncwrapper/pull/44).
@@ -29,8 +33,8 @@ A reasonably modern version of rsync (>=2.6.9) in your PATH.
 ### Usage
 
 ```javascript
-var rsync = require("rsyncwrapper");
-rsync(options,[callback]);
+var rsync = require('rsyncwrapper')
+rsync(options, [callback])
 ```
 
 The `callback` function gets four arguments `(error,stdout,stderr,cmd)`.
@@ -65,7 +69,7 @@ Path to destination. Example, `"/var/www/mysite.tld"`.
 
 ##### `ssh [Bool] default: false`
 
-Run rsync over ssh.  This is `false` by default.  To use this you need to have public/private key passwordless ssh access setup and working between your workstation and your host.  If set to `true`, you should specify ssh host data as part of your `src` or `dest` values, e.g. `user@1.2.3.4:/var/www/site`.
+Run rsync over ssh. This is `false` by default. To use this you need to have public/private key passwordless ssh access setup and working between your workstation and your host. If set to `true`, you should specify ssh host data as part of your `src` or `dest` values, e.g. `user@1.2.3.4:/var/www/site`.
 
 Another good approach is to define a host alias in your ssh config and just reference that alias in your rsync options.
 
@@ -103,11 +107,11 @@ Optional array of rsync patterns to include in the transfer, if previously exclu
 
 ##### `exclude [Array<String>]`
 
-Optional array of rsync patterns to exclude from transfer.  Include patterns are defined before exclude patterns when building the rsync command.
+Optional array of rsync patterns to exclude from transfer. Include patterns are defined before exclude patterns when building the rsync command.
 
 ##### `excludeFirst [Array<String>]`
 
-Optional array of rsync patterns to exclude from transfer. These are defined *before* the include patterns when building the rsync command. This is useful to exclude specific files or folders that would be included by the include patterns.
+Optional array of rsync patterns to exclude from transfer. These are defined _before_ the include patterns when building the rsync command. This is useful to exclude specific files or folders that would be included by the include patterns.
 
 ##### `dryRun [Boolean] default: false`
 
@@ -144,52 +148,61 @@ Basic tests are run on [Vows Async BDD](http://vowsjs.org/) via this package's G
 Copy a single file to another location. If the `dest` folder doesn't exist rsync will do a `mkdir` and create it. However it will only `mkdir` one missing directory deep (i.e. not the equivalent of `mkdir -p`).
 
 ```javascript
-rsync({
-    src: "file.txt",
-    dest: "tmp/file.txt"
-},function (error,stdout,stderr,cmd) {
-    if ( error ) {
-        // failed
-        console.log(error.message);
+rsync(
+  {
+    src: 'file.txt',
+    dest: 'tmp/file.txt',
+  },
+  function(error, stdout, stderr, cmd) {
+    if (error) {
+      // failed
+      console.log(error.message)
     } else {
-        // success
+      // success
     }
-});
+  }
+)
 ```
 
 Copy the contents of a directory to another folder, while excluding `txt` files. Note the trailing `/` on the `src` folder and the absence of a trailing `/` on the `dest` folder - this is the required format when copying the contents of a folder. Again rsync will only `mkdir` one level deep:
 
 ```javascript
-rsync({
-    src: "src-folder/",
-    dest: "dest-folder",
+rsync(
+  {
+    src: 'src-folder/',
+    dest: 'dest-folder',
     recursive: true,
-    exclude: ["*.txt"]
-},function (error,stdout,stderr,cmd) {
-    if ( error ) {
-        // failed
-        console.log(error.message);
+    exclude: ['*.txt'],
+  },
+  function(error, stdout, stderr, cmd) {
+    if (error) {
+      // failed
+      console.log(error.message)
     } else {
-        // success
+      // success
     }
-});
+  }
+)
 ```
 
 Synchronize the contents of a directory on a remote host with the contents of a local directory. The `deleteAll` option will delete all files on the remote host that either aren't present in the local folder or have been excluded from transfer.
 
 ```javascript
-rsync({
-    src: "local-src/",
-    dest: "user@1.2.3.4:/var/www/remote-dest",
+rsync(
+  {
+    src: 'local-src/',
+    dest: 'user@1.2.3.4:/var/www/remote-dest',
     ssh: true,
     recursive: true,
-    deleteAll: true // Careful, this could cause data loss
-},function (error,stdout,stderr,cmd) {
-    if ( error ) {
-        // failed
-        console.log(error.message);
+    deleteAll: true, // Careful, this could cause data loss
+  },
+  function(error, stdout, stderr, cmd) {
+    if (error) {
+      // failed
+      console.log(error.message)
     } else {
-        // success
+      // success
     }
-});
+  }
+)
 ```
