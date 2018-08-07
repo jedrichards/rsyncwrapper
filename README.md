@@ -4,6 +4,8 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `3.0.1`
+  - Add TypeScript types
 - `3.0.0`
   - Node LTS Carbon `v8.11.3` now minimum Node version
   - Remove lodash dependency
