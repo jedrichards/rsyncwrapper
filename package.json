@@ -1,6 +1,6 @@
 {
   "name": "rsyncwrapper",
-  "version": "3.0.0",
+  "version": "2.0.1",
   "description": "An async wrapper to the rsync command line utility for Node.js.",
   "main": "lib/rsyncwrapper",
   "repository": {
@@ -10,11 +10,13 @@
   "homepage": "https://github.com/jedrichards/rsyncwrapper",
   "bugs": "https://github.com/jedrichards/rsyncwrapper/issues",
   "scripts": {
-    "test": "jest --env=node"
+    "test": "jest --env=node",
+    "release": "np"
   },
   "dependencies": {},
   "devDependencies": {
-    "jest": "23.4.2"
+    "jest": "23.4.2",
+    "np": "3.0.4"
   },
   "keywords": [
     "rsync",
