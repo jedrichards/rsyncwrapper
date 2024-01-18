@@ -21,8 +21,12 @@ interface RsyncOptions {
     args?: Array<string>;
 }
 
+interface RsyncError extends Error {
+    code?: number;
+}
+
 type RsyncCallback = (
-    error: Error | null,
+    error: RsyncError | null,
     stdout: string,
     stderr: string,
     cmd: string,
