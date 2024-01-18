@@ -22,7 +22,7 @@ interface RsyncOptions {
 }
 
 interface RsyncError extends Error {
-    code: number;
+    code?: number;
 }
 
 type RsyncCallback = (
