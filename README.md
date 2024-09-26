@@ -4,6 +4,9 @@ An async wrapper to the rsync command line utility for Node.js. Also available a
 
 ### Release notes
 
+- `3.1.0`
+  - Replace deprecated Node util functions
+  - Add error code to the error object
 - `3.0.1`
   - Add TypeScript types
 - `3.0.0`
@@ -155,7 +158,7 @@ rsync(
     src: 'file.txt',
     dest: 'tmp/file.txt',
   },
-  function(error, stdout, stderr, cmd) {
+  function (error, stdout, stderr, cmd) {
     if (error) {
       // failed
       console.log(error.message)
@@ -176,7 +179,7 @@ rsync(
     recursive: true,
     exclude: ['*.txt'],
   },
-  function(error, stdout, stderr, cmd) {
+  function (error, stdout, stderr, cmd) {
     if (error) {
       // failed
       console.log(error.message)
@@ -198,7 +201,7 @@ rsync(
     recursive: true,
     deleteAll: true, // Careful, this could cause data loss
   },
-  function(error, stdout, stderr, cmd) {
+  function (error, stdout, stderr, cmd) {
     if (error) {
       // failed
       console.log(error.message)
